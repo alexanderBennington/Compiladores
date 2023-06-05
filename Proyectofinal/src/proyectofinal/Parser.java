@@ -54,6 +54,8 @@ public class Parser {
     private final Token mayor_igual = new Token(TipoToken.MAYOR_IGUAL, ">=");
     private final Token menor_igual = new Token(TipoToken.MENOR_IGUAL, "<=");
     
+    private String comilla = "\"";
+    
     private final Token finCadena = new Token(TipoToken.EOF, "");
     
 
@@ -104,8 +106,8 @@ public class Parser {
             VAR_DECL();
             DECLARATION();
         }
-        else if(preanalisis.equals(identificador) || preanalisis.equals(Gfor) || preanalisis.equals(Gif) 
-                || preanalisis.equals(Gprint) || preanalisis.equals(Greturn) || preanalisis.equals(Gwhile)){
+        else if(preanalisis.equals(Gfor) || preanalisis.equals(Gif) 
+                || preanalisis.equals(Gprint) || preanalisis.equals(Greturn) || preanalisis.equals(Gwhile) || preanalisis.equals(identificador)){
             STATEMENT();
             DECLARATION();
         }
@@ -305,7 +307,7 @@ public class Parser {
     
     void PRINT_STMT(){
         if(hayErrores) return;
-
+        
         if(preanalisis.equals(Gprint)){
             coincidir(Gprint);
             EXPRESSION();
@@ -371,11 +373,10 @@ public class Parser {
     
     void BLOCK_DECL(){
         if(hayErrores) return;
+        
+        DECLARATION();   
+        //BLOCK_DECL();
 
-        if(preanalisis.equals(identificador)){
-            DECLARATION();   
-            BLOCK_DECL();
-        }
     }
     
     void EXPRESSION(){

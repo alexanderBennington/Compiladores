@@ -46,7 +46,6 @@ public class Scanner {
 
         for(int i=0; i<source.length(); i++){
             caracter = source.charAt(i);
-
             switch (estado){
                 case 0:
                     if(caracter == '*'){
@@ -94,7 +93,7 @@ public class Scanner {
                     else if(caracter == ';'){
                         tokens.add(new Token(TipoToken.PUNTO_COMA, ";", i + 1));
                     }
-                    else if(Character.isAlphabetic(caracter)){
+                    else if(Character.isAlphabetic(caracter) || Character.isDigit(caracter)){
                         estado = 1;
                         lexema = lexema + caracter;
                         inicioLexema = i;
